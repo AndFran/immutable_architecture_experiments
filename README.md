@@ -30,8 +30,8 @@ node of 32:
                       7             27'
                    /    \        /      \
                  3       9      17       32'
-                /  \          /    \
-               1    5        14     25
+                /  \          /    \        \
+               1    5        14     25      100
 </pre>	
 
 All other nodes that do not need to change stay the same i.e. at the same address.
