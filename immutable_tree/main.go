@@ -20,6 +20,20 @@ func (n *Node) InOrder(w io.Writer) {
 	}
 }
 
+func getPath(root *Node, lst []int, data int) {
+	if root == nil {
+		fmt.Printf("path is: %+v\n", lst)
+		return
+	}
+	lst = append(lst, root.Data)
+
+	if data < root.Data {
+		getPath(root.Left, lst, data)
+	} else {
+		getPath(root.Right, lst, data)
+	}
+}
+
 func insert(root *Node, data int) *Node {
 	/*
 		From the book "The art of immutable architecture" by  Michael L. Perry
@@ -35,9 +49,9 @@ func insert(root *Node, data int) *Node {
 	newNode := &Node{root.Data, nil, nil}
 
 	if data < root.Data {
-		(*newNode).Right = root.Right // take all on the right, we "insert" on left
+		newNode.Right = root.Right // take all on the right, we "insert" on left
 	} else {
-		(*newNode).Left = root.Left // take all on left, we "insert" on right
+		newNode.Left = root.Left // take all on left, we "insert" on right
 	}
 
 	if data < root.Data {
@@ -62,15 +76,14 @@ func loadTree() *Node {
 	root.Right = &Node{27, nil, nil}
 	root.Right.Right = &Node{32, nil, nil}
 	root.Right.Left = &Node{17, nil, nil}
+	root.Right.Left.Left = &Node{14, nil, nil}
+
 	root.Right.Left.Right = &Node{25, nil, nil}
 	return &root
 }
 
 func main() {
 	root := loadTree()
-
-	root.InOrder(os.Stdout)
-
 	fmt.Println("S-------------Original tree--------------")
 	root.InOrder(os.Stdout)
 	fmt.Println("E-------------Original tree--------------")
@@ -85,20 +98,7 @@ func main() {
 	fmt.Println("S-------------Original tree not changed--------------")
 	root.InOrder(os.Stdout)
 	fmt.Println("E-------------Original tree--------------")
+
+	lst := make([]int, 0)
+	getPath(newRoot, lst, 100)
 }
-
-
-func getPath(root *Node, lst []int, data int) {
-	if root == nil {
-		fmt.Printf("path is: %+v\n", lst)
-		return
-	}
-	lst = append(lst, root.Data)
-
-	if data < root.Data {
-		getPath(root.Left, lst, data)
-	} else {
-		getPath(root.Right, lst, data)
-	}
-}
-
