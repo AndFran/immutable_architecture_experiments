@@ -85,5 +85,20 @@ func main() {
 	fmt.Println("S-------------Original tree not changed--------------")
 	root.InOrder(os.Stdout)
 	fmt.Println("E-------------Original tree--------------")
-
 }
+
+
+func getPath(root *Node, lst []int, data int) {
+	if root == nil {
+		fmt.Printf("path is: %+v\n", lst)
+		return
+	}
+	lst = append(lst, root.Data)
+
+	if data < root.Data {
+		getPath(root.Left, lst, data)
+	} else {
+		getPath(root.Right, lst, data)
+	}
+}
+
