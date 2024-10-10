@@ -10,6 +10,7 @@ immutable_tree:
 
       given the tree:
 
+<pre>
                              12
 			/        \
                       7             27
@@ -17,6 +18,7 @@ immutable_tree:
                  3       9      17       32
                 /  \          /    \
                1    5        14     25
+</pre>	
  
 if we want to insert 100 the path i.e. the nodes that would change are: 12, 27, 32 with 100 being inserted on the new 
 node of 32:
